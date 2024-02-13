@@ -4,3 +4,21 @@ Code of Conduct
 - All members must check the repository and their email at least once daily to check for updates and changes
 - All members should specify which part of the project they are working on and when they expect to complete it by
 - Project work should be distributed evenly between members 
+
+# Markdown Formatting Example
+
+**Bold Text**
+
+*Italic Text*
+
+***Bold and Italic Text***
+
+- Bullet Point 1
+- Bullet Point 2
+  - Sub Bullet Point 1
+  - Sub Bullet Point 2
+
+1. Numbered Item 1
+2. Numbered Item 2
+   1. Subitem A
+   2. Subitem B
