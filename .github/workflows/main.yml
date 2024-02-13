@@ -15,8 +15,8 @@ jobs:
           distribution: 'adopt'
       - name: Compile with Maven
         run: mvn compile
-      - name: PWD and List
-        run: pwd && ls -la
+      - name: PWD and List target
+        run: pwd && ls -la && ls -la target
       - name: Build Docker Image
         run: docker build -t semimage .
       - name: Run image
