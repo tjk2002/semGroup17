@@ -7,8 +7,16 @@ import org.bson.Document;
 
 public class App
 {
+    // Hello World function
+    public static void helloWorld() {
+        //Printing hello world
+        System.out.println("Hello, World!");
+    }
     public static void main(String[] args)
     {
+        //Call the hello world function
+        helloWorld();
+
         // Connect to MongoDB on local system - we're using port 27000
         MongoClient mongoClient = new MongoClient("mongo-dbserver");
         // Get a database - will create when we use it
