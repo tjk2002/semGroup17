@@ -21,8 +21,8 @@ jobs:
           docker pull mysql:5.7
       - name: Run MySQL
         run: |
-          docker run -d --name mysql-dbserver --network my-custom-network \
-          -e MYSQL_ROOT_PASSWORD=group \
+          docker run -d --name db --network my-custom-network \
+          -e MYSQL_ROOT_PASSWORD=example \
           -e MYSQL_DATABASE=mydb \
           -v ${{ github.workspace }}/world.sql:/docker-entrypoint-initdb.d/world.sql \
           mysql:5.7
