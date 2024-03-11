@@ -1,13 +1,4 @@
-# Use the latest MySQL image
-FROM mysql
-# Set the working directory
+FROM openjdk:latest
+COPY target/semGroup17-0.1.0.2-jar-with-dependencies.jar /tmp
 WORKDIR /tmp
-# Copy all the files to the working directory of the container
-COPY test_db/*.sql /tmp/
-COPY test_db/*.dump /tmp/
-# Copy the main SQL file to docker-entrypoint-initdb.d.
-# Scripts and SQL files in this folder are executed on container startup.
-# This is specific to MySQL.
-COPY test_db/world.sql /docker-entrypoint-initdb.d
-# Set the root password
-ENV MYSQL_ROOT_PASSWORD group
+ENTRYPOINT ["java", "-jar", "semGroup17-0.1.0.2-jar-with-dependencies.jar"]
