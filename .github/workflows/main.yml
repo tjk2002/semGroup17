@@ -15,13 +15,13 @@ jobs:
           distribution: 'adopt'
       - name: Setup network
         run: |
-          docker network create --driver bridge se-methods
+          docker network create --driver bridge my-custom-network
       - name: Pull MySQL
         run: |
           docker pull mysql:5.7
       - name: Run MySQL
         run: |
-          docker run -d --name mysql-dbserver --network se-methods \
+          docker run -d --name mysql-dbserver --network my-custom-network \
           -e MYSQL_ROOT_PASSWORD=group \
           -e MYSQL_DATABASE=mydb \
           -v ${{ github.workspace }}/world.sql:/docker-entrypoint-initdb.d/world.sql \
@@ -31,6 +31,6 @@ jobs:
       - name: Build
         run: docker build -t se_methods .
       - name: Run image
-        run: docker run --network se-methods --name semcontainer se_methods
+        run: docker run --network my-custom-network --name semcontainer se_methods
       - name: view logs
         run: docker logs semcontainer
