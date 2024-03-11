@@ -16,8 +16,16 @@ jobs:
       - name: Setup network
         run: |
           docker network create --driver bridge se-methods
-          docker pull mongo
-          docker run -d --name mongo-dbserver --network se-methods mongo
+      - name: Pull MySQL
+        run: |
+          docker pull mysql:5.7
+      - name: Run MySQL
+        run: |
+          docker run -d --name mysql-dbserver --network se-methods \
+          -e MYSQL_ROOT_PASSWORD=group \
+          -e MYSQL_DATABASE=mydb \
+          -v ${{ github.workspace }}/world.sql:/docker-entrypoint-initdb.d/world.sql \
+          mysql:5.7
       - name: Build with Maven
         run: mvn package
       - name: Build

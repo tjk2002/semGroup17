@@ -1,4 +1,4 @@
-Code of Conduct
+#Code of Conduct
 
 - All members must attend the practical class every Thursday
 - All members must check the repository and their email at least once daily to check for updates and changes
