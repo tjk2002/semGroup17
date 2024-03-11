@@ -30,6 +30,17 @@ public class App
                 // Connect to database
                 con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
+
+                PreparedStatement p = con.prepareStatement("SELECT name FROM city WHERE ID=1");
+                try (ResultSet rs = p.executeQuery()) {
+                    while (rs.next()) {
+                        System.out.println("name = " + rs.getString("name"));
+                    }
+                }
+                catch (SQLException e) {
+                    System.out.println("Error: " + e.toString());
+                }
+
                 // Wait a bit
                 Thread.sleep(5000);
                 // Exit for loop
