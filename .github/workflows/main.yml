@@ -13,6 +13,12 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+      - name: Unit Tests
+        run: mvn -Dtest=com.napier.sem.MyTest test
+      - name: Package and Run docker compose
+        run: |
+          mvn package -DskitTests
+          docker-compose up --abort-on-container-exit
       - name: Setup network
         run: |
           docker network create --driver bridge my-custom-network
