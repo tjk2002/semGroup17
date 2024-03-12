@@ -2,17 +2,40 @@ name: A workflow for my Hello World App
 on: push
 
 jobs:
+  UnitTests:
+    name: Unit Tests
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Unit Tests
+        run: mvn -Dtest=com.napier.sem.MyTest test
+
+
   build:
     name: Hello world action
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          submodules: recursive
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'adopt'
+      - name: Package and Run docker compose
+        run: |
+          mvn package -DskitTests
+          docker-compose up --abort-on-container-exit
       - name: Unit Tests
         run: mvn -Dtest=com.napier.sem.MyTest test
       - name: Package and Run docker compose
@@ -40,3 +63,10 @@ jobs:
         run: docker run --network my-custom-network --name semcontainer se_methods
       - name: view logs
         run: docker logs semcontainer
+      - name: CodeCov
+        uses: codecov/codecov-action@v2
+        with:
+          # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          directory: ./taret/site/jacoco
+          flags: Integration Tests # optional
+          verbose: true # optional (default = false)

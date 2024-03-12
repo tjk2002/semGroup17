@@ -5,10 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.Connection;
 
 class MyTest{
+    //defining static variables for tests
     static App app;
     static Connection databaseConnection;
     static String input;
 
+    //assigning static variables with values before tests
     @BeforeAll
     static void init(){
         app = new App();
