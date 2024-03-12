@@ -74,6 +74,7 @@ public class App
         }
     }
 
+    //methods for all reports
     public void report1(Object o) {
     }
 
