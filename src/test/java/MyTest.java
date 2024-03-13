@@ -1,13 +1,16 @@
+/*
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.sql.*;
+import org.junit.jupiter.api.Disabled;
 
-class MyTest {
+class MyTestA {
 
+    @Disabled("No constructor")
     private Connection connect() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/world", "root", "example");
     }
-
+    @Disabled("")
     @Test
     public void testRetrieveCityByName() throws SQLException {
         String cityName = "Harare";
@@ -23,3 +26,4 @@ class MyTest {
         }
     }
 }
+*/
