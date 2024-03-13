@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="UTConfig" type="JUnit" factoryName="JUnit">
+    <module name="semGroup17" />
+    <option name="PACKAGE_NAME" value="com.napier.sem" />
+    <option name="MAIN_CLASS_NAME" value="com.napier.sem.MyTest" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
