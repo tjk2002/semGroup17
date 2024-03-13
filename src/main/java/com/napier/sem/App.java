@@ -1,9 +1,9 @@
 package com.napier.sem;
 
 import java.sql.*;
-//import org.junit.jupiter.api.BeforeAll;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 public class App
 {
@@ -34,15 +34,7 @@ public class App
                 con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
 
-                PreparedStatement p = con.prepareStatement("SELECT name FROM city WHERE ID=1");
-                try (ResultSet rs = p.executeQuery()) {
-                    while (rs.next()) {
-                        System.out.println("name = " + rs.getString("name"));
-                    }
-                }
-                catch (SQLException e) {
-                    System.out.println("Error: " + e.toString());
-                }
+               report1(con);
 
                 // Wait a bit
                 Thread.sleep(5000);
@@ -75,8 +67,24 @@ public class App
     }
 
     //methods for all reports
-    public void report1(Object o) {
+    public static void report1(Connection con) {
+        // Simplified query to select only country names, ordered by population in descending order
+        String query = "SELECT Name FROM country ORDER BY Population DESC";
+        try (Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            System.out.println("Countries in the world organized by largest population to smallest:");
+            while (rs.next()) {
+                String name = rs.getString("Name"); // Retrieve the country name from the ResultSet
+
+                System.out.println("Name: " + name); // Print the country name
+            }
+        } catch (SQLException e) {
+            System.out.println("Database access error:");
+            e.printStackTrace();
+        }
     }
+
 
     public void report2(Object o) {
     }
