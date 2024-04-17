@@ -75,7 +75,22 @@ public class App
     }
 
     //methods for all reports
-    public void report1(Object o) {
+    public static void report1(Connection con) {
+        // Simplified query to select only country names, ordered by population in descending order
+        String query = "SELECT Name FROM country ORDER BY Population DESC";
+        try (Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            System.out.println("Countries in the world organized by largest population to smallest:");
+            while (rs.next()) {
+                String name = rs.getString("Name"); // Retrieve the country name from the ResultSet
+
+                System.out.println("Name: " + name); // Print the country name
+            }
+        } catch (SQLException e) {
+            System.out.println("Database access error:");
+            e.printStackTrace();
+        }
     }
 
     public void report2(Object o) {
