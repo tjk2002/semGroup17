@@ -59,8 +59,8 @@ class MyTest{
         app.report23(null);
         app.report24(null);
         app.report25(null);
-        app.report26(null);
-        app.report27(null);
+        App.report26(databaseConnection);
+        App.report27(databaseConnection, input);
         app.report28(databaseConnection, input);
         app.report29(databaseConnection, input);
         app.report30(databaseConnection, input);
