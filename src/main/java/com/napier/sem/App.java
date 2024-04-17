@@ -70,6 +70,7 @@ public class App
             }
         }
 
+        //scanning user input and calling each report method
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter input for report 28:");
@@ -111,7 +112,6 @@ public class App
             e.printStackTrace();
         }
     }
-
 
     public void report2(Object o) {
     }
@@ -330,6 +330,7 @@ public class App
                     while(rs2.next()){
                         String query3 = "SELECT SUM(Population) FROM country WHERE Code = "+rs2.getString("CountryCode");
 
+                        //try catch statement to store the population values
                         try (Statement stmt3 = con.createStatement(); ResultSet rs3 = stmt.executeQuery(query)){
                             languagePop[i] += rs3.getInt("Population");
                             languagePopStorage[i] += rs3.getInt("Population");
@@ -343,12 +344,15 @@ public class App
                     e.printStackTrace();
                 }
 
+                //resetting query
                 query = "SELECT CountryCode FROM countryLanguage WHERE Language = ";
             }
 
+            //sorting one of the two arrays from highest to lowest
             Arrays.sort(languagePop, Collections.reverseOrder());
             System.out.println("Languages spoken by population from greatest to smallest:");
 
+            //loop to print the population values in the correct order and assigned to the correct language by using the languagePopStorage as a reference for which value is for which language
             for(int i=0; i<5; i++){
                 int u = 0;
                 int found = 0;
