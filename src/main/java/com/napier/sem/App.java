@@ -160,53 +160,231 @@ public class App
     public void report9(Object o) {
     }
 
-    public void report10(Object o) {
+    public void report10(String countryName) throws SQLException {
+    String query = "SELECT Name, Population FROM city WHERE CountryCode = ? ORDER BY population DESC";
+    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setString(1, countryCode);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getString("Name") + ": " + rs.getInt("Population"));
+        }
+    }
     }
 
-    public void report11(Object o) {
+
+    public void report11(String districtName) throws SQLException {
+    String query = "SELECT Name, Population FROM city WHERE District = ? ORDER BY population DESC";
+    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setString(1, districtName);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getString("Name") + ": " + rs.getInt("Population"));
+        }
+    }
     }
 
-    public void report12(Object o) {
+
+    public void report12(int N) throws SQLException {
+    String query = "SELECT Name, Population FROM city ORDER BY Population DESC LIMIT ?";
+    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setInt(1, N);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getString("Name") + ": " + rs.getInt("Population"));
+        }
+    }
     }
 
-    public void report13(Object o) {
+
+    public void report13(String continent, int N) throws SQLException {
+    String query = "SELECT Name, Population FROM country WHERE Continent = ? ORDER BY population DESC LIMIT ?";
+    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setString(1, continent);
+        pstmt.setInt(2, N);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getString("Name") + ": " + rs.getInt("Population"));
+        }
+    }
     }
 
-    public void report14(Object o) {
+
+    public void report14(String region, int N) throws SQLException {
+    String query = "SELECT Name, Population FROM country WHERE Region = ? ORDER BY population DESC LIMIT ?";
+    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setString(1, region);
+        pstmt.setInt(2, N);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getString("Name") + ": " + rs.getInt("Population"));
+        }
+    }
     }
 
-    public void report15(Object o) {
+
+    public void report15(String countryCode, int N) throws SQLException {
+    String query = "SELECT Name, Population FROM city WHERE CountryCode = ? ORDER BY population DESC LIMIT ?";
+    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setString(1, countryCode);
+        pstmt.setInt(2, N);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getString("Name") + ": " + rs.getInt("Population"));
+        }
+    }
     }
 
-    public void report16(Object o) {
+
+    public void report16(String district, int N) throws SQLException {
+    String query = "SELECT Name, Population FROM city WHERE District = ? ORDER BY population DESC LIMIT ?";
+    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setString(1, district);
+        pstmt.setInt(2, N);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getString("Name") + ": " + rs.getInt("Population"));
+        }
+    }
     }
 
-    public void report17(Object o) {
+
+    public void report17() throws SQLException {
+    String query = "SELECT Name, Population FROM country WHERE Capital = ? ORDER BY population DESC";
+    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getString("Name") + ": " + rs.getInt("Population"));
+        }
+    }
     }
 
-    public void report18(Object o) {
+
+    public void report18(String continent) throws SQLException {
+    String query = "SELECT Name, Population FROM country WHERE Capital = ? AND continent = ? ORDER BY population DESC";
+    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setString(1, continent);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getString("Name") + ": " + rs.getInt("Population"));
+        }
+    }
     }
 
-    public void report19(Object o) {
+
+
+    public void report19(String region) {
+    String sql = "SELECT city_name, population FROM Cities WHERE is_capital = TRUE AND region = ? ORDER BY population DESC;";
+    try (Connection conn = this.connect();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, region);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getString("city_name") + "\t" + rs.getInt("population"));
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
     }
 
-    public void report20(Object o) {
+
+    public void report20(int N) {
+    String query = "SELECT city_name, population FROM Cities WHERE is_capital = TRUE ORDER BY population DESC LIMIT ?;";
+    try (Connection conn = this.connect();
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setInt(1, N);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getString("city_name") + "\t" + rs.getInt("population"));
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
     }
 
-    public void report21(Object o) {
+
+    public void report21(String continent, int N) {
+    String query = "SELECT city_name, population FROM Cities WHERE is_capital = TRUE AND continent = ? ORDER BY population DESC LIMIT ?;";
+    try (Connection conn = this.connect();
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setString(1, continent);
+        pstmt.setInt(2, N);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getString("city_name") + "\t" + rs.getInt("population"));
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
     }
 
-    public void report22(Object o) {
+
+    public void report22(String region, int N) {
+    String query = "SELECT city_name, population FROM Cities WHERE is_capital = TRUE AND region = ? ORDER BY population DESC LIMIT ?;";
+    try (Connection conn = this.connect();
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setString(1, region);
+        pstmt.setInt(2, N);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getString("city_name") + "\t" + rs.getInt("population"));
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
     }
 
-    public void report23(Object o) {
+
+    public void report23() {
+    String query = "SELECT continent, SUM(population) AS total_population, SUM(city_population) AS urban_population, (SUM(population) - SUM(city_population)) AS rural_population FROM Countries GROUP BY continent;";
+    try (Connection conn = this.connect();
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getString("continent") + "\t" +
+                               rs.getInt("total_population") + "\t" +
+                               rs.getInt("urban_population") + "\t" +
+                               rs.getInt("rural_population"));
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
     }
 
-    public void report24(Object o) {
+
+
+    public void report24() {
+    String query = "SELECT region, SUM(population) AS total_population, SUM(city_population) AS urban_population, (SUM(population) - SUM(city_population)) AS rural_population FROM Countries GROUP BY region;";
+    try (Connection conn = this.connect();
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getString("region") + "\t" +
+                               rs.getInt("total_population") + "\t" +
+                               rs.getInt("urban_population") + "\t" +
+                               rs.getInt("rural_population"));
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
     }
 
-    public void report25(Object o) {
+
+    public void report25() {
+    String query = "SELECT country_name, population, city_population, (population - city_population) AS rural_population FROM Countries;";
+    try (Connection conn = this.connect();
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getString("country_name") + "\t" +
+                               rs.getInt("population") + "\t" +
+                               rs.getInt("city_population") + "\t" +
+                               rs.getInt("rural_population"));
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
     }
+    }
+
 
     public static void report26(Connection con) {
         //query string to return the total sum of the populations in the world
