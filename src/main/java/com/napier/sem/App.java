@@ -14,13 +14,48 @@ public class App
 {
     public static void main(String[] args)
     {
-        try
-        {
+        //connect to database
+        Connection con = databaseConnect();
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Press enter to continue");
+        String input = scanner.nextLine();
+
+        System.out.println("Press enter for report 26:");
+        input = scanner.nextLine();
+        report26(con);
+
+        System.out.println("Enter input for report 27:");
+        input = scanner.nextLine();
+        report27(con, input);
+
+        System.out.println("Enter input for report 28:");
+        input = scanner.nextLine();
+        report28(con, input);
+
+        System.out.println("Enter input for report 29:");
+        input = scanner.nextLine();
+        report29(con, input);
+
+        System.out.println("Enter input for report 30:");
+        input = scanner.nextLine();
+        report30(con, input);
+
+        System.out.println("Enter input for report 31:");
+        input = scanner.nextLine();
+        report31(con, input);
+
+        System.out.println("Press enter for report 32:");
+        input = scanner.nextLine();
+        report32(con);
+    }
+
+    //method to initialise database
+    public static Connection databaseConnect(){
+        try {
             // Load Database driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-        }
-        catch (ClassNotFoundException e)
-        {
+        } catch (ClassNotFoundException e) {
             System.out.println("Could not load SQL driver");
             System.exit(-1);
         }
@@ -39,7 +74,15 @@ public class App
                 con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
 
-               report1(con);
+                PreparedStatement p = con.prepareStatement("SELECT name FROM city WHERE ID=1");
+                try (ResultSet rs = p.executeQuery()) {
+                    while (rs.next()) {
+                        System.out.println("name = " + rs.getString("name"));
+                    }
+                }
+                catch (SQLException e) {
+                    System.out.println("Error: " + e.toString());
+                }
 
                 // Wait a bit
                 Thread.sleep(5000);
@@ -61,37 +104,17 @@ public class App
         {
             try
             {
-                // Close connection
-                con.close();
+                // Return the connection
+                return con;
             }
             catch (Exception e)
             {
                 System.out.println("Error closing connection to database");
             }
+        } else {
+            System.out.println("Connection failed.");
         }
-
-        //scanning user input and calling each report method
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter input for report 28:");
-        String input = scanner.nextLine();
-        report28(con, input);
-
-        System.out.println("Enter input for report 29:");
-        input = scanner.nextLine();
-        report29(con, input);
-
-        System.out.println("Enter input for report 30:");
-        input = scanner.nextLine();
-        report30(con, input);
-
-        System.out.println("Enter input for report 31:");
-        input = scanner.nextLine();
-        report31(con, input);
-
-        System.out.println("Press enter for report 32:");
-        input = scanner.nextLine();
-        report32(con);
+        return null;
     }
 
     //methods for all reports
@@ -185,10 +208,35 @@ public class App
     public void report25(Object o) {
     }
 
-    public void report26(Object o) {
+    public static void report26(Connection con) {
+        //query string to return the total sum of the populations in the world
+        String query = "SELECT SUM(Population) FROM country";
+
+        //try catch statement to send and return the result of the first query
+        try (Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+            //printing report results
+            System.out.println("Population report for the world");
+            System.out.println(rs.getInt("Population"));
+        } catch (SQLException e) {
+            System.out.println("Database access error:");
+            e.printStackTrace();
+        }
     }
 
-    public void report27(Object o) {
+    public static void report27(Connection con, String targetContinent) {
+        //query string to return the total sum of the populations in a given continent
+        String query = "SELECT SUM(Population) FROM country WHERE Continent = "+targetContinent;
+
+        //try catch statement to send and return the result of the first query
+        try (Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+            //printing report results
+            System.out.println("Population report for the region: "+targetContinent);
+            System.out.println(targetContinent);
+            System.out.println(rs.getInt("Population"));
+        } catch (SQLException e) {
+            System.out.println("Database access error:");
+            e.printStackTrace();
+        }
     }
 
     //method that takes a target region and returns a population report

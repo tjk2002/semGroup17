@@ -2,9 +2,7 @@ package com.napier.sem;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
-import java.sql.*;
-import org.junit.jupiter.api.Disabled;
-
+import java.sql.Connection;
 
 class MyTest{
     //defining static variables for tests
@@ -20,6 +18,7 @@ class MyTest{
         input = "";
     }
 
+
     //test if the database is connected
     @Test
     void testDatabaseConnect(){
@@ -32,7 +31,7 @@ class MyTest{
         assertNotNull(input);
     }
 
-    //test all reports
+    //test all reports for null
     @Test
     void testReportNull(){
         App.report1(databaseConnection);
@@ -60,12 +59,12 @@ class MyTest{
         app.report23(null);
         app.report24(null);
         app.report25(null);
-        app.report26(null);
-        app.report27(null);
-        App.report28(databaseConnection, input);
-        App.report29(databaseConnection, input);
-        App.report30(databaseConnection, input);
-        App.report31(databaseConnection, input);
-        App.report32(databaseConnection);
+        App.report26(databaseConnection);
+        App.report27(databaseConnection, input);
+        app.report28(databaseConnection, input);
+        app.report29(databaseConnection, input);
+        app.report30(databaseConnection, input);
+        app.report31(databaseConnection, input);
+        app.report32(databaseConnection);
     }
 }
