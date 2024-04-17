@@ -61,10 +61,10 @@ class MyTest{
         app.report25(null);
         App.report26(databaseConnection);
         App.report27(databaseConnection, input);
-        app.report28(databaseConnection, input);
-        app.report29(databaseConnection, input);
-        app.report30(databaseConnection, input);
-        app.report31(databaseConnection, input);
-        app.report32(databaseConnection);
+        App.report28(databaseConnection, input);
+        App.report29(databaseConnection, input);
+        App.report30(databaseConnection, input);
+        App.report31(databaseConnection, input);
+        App.report32(databaseConnection);
     }
 }
