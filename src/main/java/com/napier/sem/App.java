@@ -139,8 +139,25 @@ public class App
     public void report2(Object o) {
     }
 
-    public void report3(Object o) {
-    }
+    public void report3(Object o) { 
+    String query = "SELECT Name FROM country WHERE Region = ? ORDER BY Population DESC";
+
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setString(1, region); // Set the region parameter in the query
+
+            System.out.println("Countries in " + region + " organized by largest population to smallest:");
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String name = rs.getString("Name"); // Retrieve the country name from the ResultSet
+
+                    System.out.println("Name: " + name); // Print the country name
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Database access error:");
+            e.printStackTrace();
+        }
+    } 
 
     public void report4(Object o) {
     }
@@ -152,6 +169,22 @@ public class App
     }
 
     public void report7(Object o) {
+        String query = "SELECT Name, Population FROM city ORDER BY Population DESC";
+
+        try (Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            System.out.println("Cities in the world organized by largest population to smallest:");
+            while (rs.next()) {
+                String name = rs.getString("Name"); // Retrieve the city name from the ResultSet
+                int population = rs.getInt("Population"); // Retrieve the population of the city
+
+                System.out.println("City: " + name + ", Population: " + population);
+            }
+        } catch (SQLException e) {
+            System.out.println("Database access error:");
+            e.printStackTrace();
+        }
     }
 
     public void report8(Object o) {
