@@ -34,7 +34,7 @@ class MyTest{
     //test all reports for null
     @Test
     void testReportNull(){
-        app.report1(null);
+        App.report1(databaseConnection);
         app.report2(null);
         app.report3(null);
         app.report4(null);
@@ -59,16 +59,12 @@ class MyTest{
         app.report23(null);
         app.report24(null);
         app.report25(null);
-        app.report26(null);
-        app.report27(null);
-        app.report28(null);
-        app.report29(null);
-        app.report30(null);
-        app.report31(null);
-        app.report32(null);
-        app.report33(null);
-        app.report34(null);
-        app.report35(null);
-        app.report36(null);
+        App.report26(databaseConnection);
+        App.report27(databaseConnection, input);
+        App.report28(databaseConnection, input);
+        App.report29(databaseConnection, input);
+        App.report30(databaseConnection, input);
+        App.report31(databaseConnection, input);
+        App.report32(databaseConnection);
     }
 }
