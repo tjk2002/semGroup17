@@ -139,25 +139,26 @@ public class App
     public void report2(Object o) {
     }
 
-    public void report3(Object o) { 
+    public static void report3(Connection con, String region) {
+    // SQL query to select country names in a specific region, ordered by population in descending order
     String query = "SELECT Name FROM country WHERE Region = ? ORDER BY Population DESC";
 
-        try (PreparedStatement pstmt = con.prepareStatement(query)) {
-            pstmt.setString(1, region); // Set the region parameter in the query
+    try (PreparedStatement pstmt = con.prepareStatement(query)) {
+        pstmt.setString(1, region); // Set the region parameter in the query
 
-            System.out.println("Countries in " + region + " organized by largest population to smallest:");
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    String name = rs.getString("Name"); // Retrieve the country name from the ResultSet
+        System.out.println("Countries in " + region + " organized by largest population to smallest:");
+        try (ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                String name = rs.getString("Name"); // Retrieve the country name from the ResultSet
 
-                    System.out.println("Name: " + name); // Print the country name
-                }
+                System.out.println("Name: " + name); // Print the country name
             }
-        } catch (SQLException e) {
-            System.out.println("Database access error:");
-            e.printStackTrace();
         }
-    } 
+    } catch (SQLException e) {
+        System.out.println("Database access error:");
+        e.printStackTrace();
+    }
+    }
 
     public void report4(Object o) {
     }
