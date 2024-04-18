@@ -136,7 +136,25 @@ public class App
         }
     }
 
-    public void report2(Object o) {
+    public static void report2(Connection con, String continent) {
+    // SQL query to select country names in a specific continent, ordered by population in descending order
+    String query = "SELECT Name FROM country WHERE Continent = ? ORDER BY Population DESC";
+
+    try (PreparedStatement pstmt = con.prepareStatement(query)) {
+        pstmt.setString(1, continent); // Set the continent parameter in the query
+
+        System.out.println("Countries in " + continent + " organized by largest population to smallest:");
+        try (ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                String name = rs.getString("Name"); // Retrieve the country name from the ResultSet
+
+                System.out.println("Name: " + name); // Print the country name
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println("Database access error:");
+        e.printStackTrace();
+    }
     }
 
     public static void report3(Connection con, String region) {
